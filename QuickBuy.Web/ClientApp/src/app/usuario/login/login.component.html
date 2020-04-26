@@ -1,0 +1,50 @@
+<div class="text-center">
+  <form action="/" method="post" class="form-signin">
+    <h1 class="h4 mb-2 login">Login do Cliente</h1>
+
+    <label for="inputEmail" class="sr-only">E-mail</label>
+    <input type="email" id="inputEmail"
+           name="email" placeholder="Informe seu E-mail"
+           class="form-control mb-2"
+           [ngClass] ="{
+            'is-invalid': email.invalid && (email.dirty || email.touched),
+            'is-valid': email.valid && (email.dirty || email.touched)
+           }"
+           [(ngModel)]="usuario.email"
+           #email="ngModel"
+           email
+           required/>
+
+    <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+      <div *ngIf="email.errors.required">
+        E-mail é de preenchimento obrigatório
+      </div>
+      <div *ngIf="email.errors.email">
+        E-mail não está no formato correto
+      </div>
+    </div>
+
+      <label for="inputSenha" class=" sr-only">Senha</label>
+      <input type="password" id="inputSenha"
+             name="name" placeholder="Informe sua Senha"
+             class="form-control mb-2"
+             [ngClass] ="{
+               'is-invalid': senha.invalid && (senha.dirty || senha.touched),
+               'is-valid': senha.valid && (senha.dirty || senha.touched)
+              }"
+             [(ngModel)]="usuario.senha"
+             #senha="ngModel"
+             required/>
+      <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+        <div *ngIf="senha.errors.required">
+          Senha deve ser informada
+        </div>
+
+      </div>
+
+      <button class="btn btn-primary btn-block" type="submit" (click)="entrar()">Entrar</button>
+      <img src="..\..\..\..\..\..\assets\img\quick-b-logo.jpg" />
+
+</form>
+
+</div>
