@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../modelo/usuario';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UsuarioServico } from '../../servicos/usuario/usuario.servico';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +12,10 @@ export class LoginComponent implements OnInit {
 
   public usuario;
   public returnUrl: string;
+  public mensagem: string;
+  private ativar_spinner: boolean;
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) { //injeção de dependencia
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private usuarioServico: UsuarioServico ) { //injeção de dependencia
     //this.returnUrl = this.activatedRouter.snapshot.queryParams['returnUrl'];
   }
 
@@ -22,10 +25,30 @@ export class LoginComponent implements OnInit {
   }
 
   entrar() {
-    if (this.usuario.email == 'teste@teste.com' && this.usuario.senha == '123') {
-      sessionStorage.setItem("usuario-autenticado", "1");
-      this.router.navigate([this.returnUrl]);
-    }
-    alert(this.usuario.email + ' - ' + this.usuario.senha);
+    this.ativar_spinner = true;
+    this.usuarioServico.verificarUsuario(this.usuario).subscribe(
+      usuario_json => {
+        //alert("Esse eh o subscribe sucesso");
+        //console.log(data);
+        //var usuarioRetorno: Usuario;
+        //usuarioRetorno = data;
+        //sessionStorage.setItem("usuario-autenticado", "1");
+        //sessionStorage.setItem("email-usuario", usuarioRetorno.email);
+        this.usuarioServico.usuario = usuario_json;
+        if (this.returnUrl == null) {
+          this.router.navigate(['/']);
+        } else {
+          this.router.navigate([this.returnUrl]);
+        }
+        
+      },
+      err => {
+        //alert("Esse eh o subscribe erro" + err);
+        //console.log(err.error);
+        this.ativar_spinner = false;
+        this.mensagem = err.error;
+      }
+    );
+
   }
 }
