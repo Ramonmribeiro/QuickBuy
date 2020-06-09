@@ -6,5 +6,6 @@ namespace QuickBuy.Dominio.Contratos
     {
 
         Usuario Obter(string email, string senha);
+        Usuario Obter(string email);
     }
 }

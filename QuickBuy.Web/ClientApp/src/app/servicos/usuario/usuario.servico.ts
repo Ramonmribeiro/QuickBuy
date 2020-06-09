@@ -32,6 +32,10 @@ export class UsuarioServico {
     alert("usuario servico limpar");
   }
 
+  get headers(): HttpHeaders {
+    return new HttpHeaders().set('content-type', 'application/json');
+  }
+
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseURL = baseUrl;
   }
@@ -45,6 +49,11 @@ export class UsuarioServico {
     //alert("usuario servico verificar usuario");
     //this.URL = raiz do site que pode ser http://www.quickbuy.com/
     return this.http.post<Usuario>(this.baseURL + "api/usuario/VerificarUsuario", body, { headers });
+  }
+
+  public cadastrarUsuario(usuario: Usuario): Observable<Usuario> {
+
+    return this.http.post<Usuario>(this.baseURL + "api/usuario", JSON.stringify(usuario), { headers: this.headers });
   }
 
 }
