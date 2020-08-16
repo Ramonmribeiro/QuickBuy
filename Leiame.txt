@@ -1,0 +1,26 @@
+Links Download .NET Core 2.2
+Windows 64 bits
+
+https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-2.2.202-windows-x64-installer
+
+Windows 32 bits
+
+https://dotnet.microsoft.com/download/dotnet-core/thank-you/sdk-2.2.202-windows-x86-installer
+
+---------------------------
+
+Versão NodeJS
+
+https://nodejs.org/download/release/v10.15.3/
+
+---------------------------------
+
+Angular
+
+npm install -g @angular/cli
+
+------------------------------------
+
+B-anco
+
+update-database (no console gerenciador de pacotes)

@@ -16,6 +16,9 @@ import { ProdutoServico } from './servicos/produto/produto.servico';
 import { PesquisaProdutoComponent } from './produto/Pesquisa/pesquisa.produto.component';
 import { LojaPesquisaComponent } from './loja/pesquisa/loja.pesquisa.component';
 import { LojaProdutoComponent } from './loja/produto/loja.produto.component';
+import { LojaEfetivarComponent } from './loja/efetivar/loja.efetivar.component';
+import { PedidoServico } from './servicos/pedido/pedido.servico';
+import { LojaCompraRealizadaComponent } from './loja/efetivar/loja.compra.realizada.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { LojaProdutoComponent } from './loja/produto/loja.produto.component';
     CadastroUsuarioComponent,
     PesquisaProdutoComponent,
     LojaPesquisaComponent,
-    LojaProdutoComponent
+    LojaProdutoComponent,
+    LojaEfetivarComponent,
+    LojaCompraRealizadaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,14 +41,16 @@ import { LojaProdutoComponent } from './loja/produto/loja.produto.component';
     TruncateModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'produto', component: ProdutoComponent },
+      { path: 'produto', component: ProdutoComponent, canActivate:[GuardaRotas]},
       { path: 'entrar', component: LoginComponent },
       { path: 'novo-usuario', component: CadastroUsuarioComponent },
-      { path: 'pesquisar-produto', component: PesquisaProdutoComponent },
-      { path: 'loja-produto', component: LojaProdutoComponent }
+      { path: 'pesquisar-produto', component: PesquisaProdutoComponent, canActivate: [GuardaRotas]},
+      { path: 'loja-produto', component: LojaProdutoComponent },
+      { path: 'loja-efetivar', component: LojaEfetivarComponent, canActivate: [GuardaRotas] },
+      { path: 'compra-realizada-sucesso', component: LojaCompraRealizadaComponent}
     ])
   ],
-  providers: [UsuarioServico, ProdutoServico],
+  providers: [UsuarioServico, ProdutoServico, PedidoServico],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
